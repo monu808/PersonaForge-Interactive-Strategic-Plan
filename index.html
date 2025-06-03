@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonaForge: Interactive Strategic Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Visualization & Content Choices: 
+        - Revenue Projection -> Goal: Show Change -> Viz: Interactive Line Chart (Chart.js). Interaction: Hover tooltips for precise data points. Justification: Clearly visualizes financial growth over time.
+        - Core Architecture/Data Gathering -> Goal: Organize -> Viz: HTML/CSS Flowchart. Interaction: Hover to highlight nodes and connections. Justification: Visually represents complex processes without external libraries, ensuring speed and compatibility.
+        - Pricing Model -> Goal: Compare -> Viz: HTML/CSS Pricing Cards. Interaction: Subtle hover-grow effect. Justification: A standard, user-friendly pattern for comparing features and value across different tiers.
+        - Replica Types/Tool Stack -> Goal: Inform/Organize -> Viz: Interactive HTML/CSS Grid. Interaction: Click to show modal with details. Justification: Presents categorical information cleanly and allows users to drill down for more detail on demand.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 450px; }
+        .nav-link { transition: all 0.2s ease-in-out; }
+        .nav-link.active { background-color: #10B981; color: white; }
+        .nav-link:not(.active):hover { background-color: #374151; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .flowchart-node { transition: all 0.2s ease-in-out; }
+        .flowchart-node:hover { transform: scale(1.05); background-color: #10B981; color: white; }
+        .flowchart-line { position: absolute; background-color: #4B5563; }
+        .flowchart-arrow::after { content: '▶'; position: absolute; font-size: 12px; color: #4B5563; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-gray-800 p-6 flex-shrink-0">
+            <h1 class="text-3xl font-bold text-white mb-2">PersonaForge</h1>
+            <p class="text-gray-400 mb-8 text-sm">Interactive Strategic Plan</p>
+            <nav id="main-nav" class="space-y-2">
+                <a href="#overview" class="nav-link flex items-center p-3 rounded-lg">
+                    <span class="mr-3">🌟</span> Overview
+                </a>
+                <a href="#platform" class="nav-link flex items-center p-3 rounded-lg">
+                    <span class="mr-3">🏗️</span> Platform Architecture
+                </a>
+                <a href="#monetization" class="nav-link flex items-center p-3 rounded-lg">
+                    <span class="mr-3">💰</span> Monetization
+                </a>
+                <a href="#roadmap" class="nav-link flex items-center p-3 rounded-lg">
+                    <span class="mr-3">⚙️</span> Roadmap & Tech
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 sm:p-10 bg-gray-900 overflow-y-auto">
+            
+            <section id="overview" class="content-section">
+                <h2 class="text-4xl font-bold text-white mb-4">Vision</h2>
+                <p class="text-lg text-gray-300 max-w-4xl mb-12">
+                    Create, interact with, and monetize AI replicas of anyone - from loved ones to historical icons to emergency professionals - through a full-stack web application. PersonaForge aims to revolutionize how we preserve legacies, consume knowledge, and access critical expertise by transforming static data into dynamic, interactive AI personalities.
+                </p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-white mb-2">Unified Platform</h3>
+                        <p class="text-gray-400">The first solution combining personal, historical, and professional replicas for both entertainment and utility.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-white mb-2">High-Fidelity AI</h3>
+                        <p class="text-gray-400">Moves beyond basic chatbots to achieve true behavioral emulation and context-aware interactions.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-white mb-2">Blockchain Trust</h3>
+                        <p class="text-gray-400">Leverages Algorand for verifiable replica authenticity and transparent royalty distribution.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="platform" class="content-section">
+                <h2 class="text-4xl font-bold text-white mb-4">Platform Architecture</h2>
+                <p class="text-lg text-gray-300 max-w-4xl mb-12">
+                    PersonaForge is built on a robust, multi-modal architecture designed to ingest diverse data types and generate lifelike AI personas. The platform's core engine processes everything from video to text, creating a comprehensive personality matrix that powers every interaction.
+                </p>
+
+                <div class="bg-gray-800 p-8 rounded-lg mb-10">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">Core System Flow</h3>
+                    <div class="flex flex-wrap justify-center items-center gap-8">
+                        <div class="flowchart-node bg-gray-700 p-4 rounded-lg text-center">
+                            <p class="font-semibold">Bolt Frontend</p>
+                            <p class="text-sm text-gray-400">User Interface</p>
+                        </div>
+                        <p class="text-2xl text-green-400 font-mono">→</p>
+                        <div class="flowchart-node bg-gray-700 p-4 rounded-lg text-center">
+                            <p class="font-semibold">Backend Services</p>
+                            <p class="text-sm text-gray-400">Netlify Functions</p>
+                        </div>
+                        <p class="text-2xl text-green-400 font-mono">→</p>
+                        <div class="flex flex-col gap-4">
+                             <div class="flowchart-node bg-gray-600 p-3 rounded-lg text-center">AI Processing (Tavus/ElevenLabs)</div>
+                             <div class="flowchart-node bg-gray-600 p-3 rounded-lg text-center">Blockchain (Algorand)</div>
+                             <div class="flowchart-node bg-gray-600 p-3 rounded-lg text-center">Payment (RevenueCat)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mt-12 mb-4">Replica Types</h3>
+                 <p class="text-gray-300 max-w-4xl mb-6">
+                    The platform supports a wide array of replica categories, each trained on specific data sources to ensure authenticity and relevance. Click on a category to learn more about its data sources.
+                </p>
+                <div id="replica-types-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                </div>
+            </section>
+            
+            <section id="monetization" class="content-section">
+                <h2 class="text-4xl font-bold text-white mb-4">Monetization Strategy</h2>
+                 <p class="text-lg text-gray-300 max-w-4xl mb-12">
+                    PersonaForge's revenue model is built on a multi-faceted approach, capturing value through subscriptions, commissions, and specialized service packages. This diversification ensures sustainable growth while offering flexible options for different user segments.
+                </p>
+                
+                <h3 class="text-2xl font-bold text-white mb-6">Revenue Projections</h3>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-white mt-12 mb-6">Pricing Model</h3>
+                <div id="pricing-tiers-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            </section>
+
+            <section id="roadmap" class="content-section">
+                <h2 class="text-4xl font-bold text-white mb-4">Roadmap & Technology</h2>
+                <p class="text-lg text-gray-300 max-w-4xl mb-12">
+                   The development is structured in a 3-week sprint, prioritizing core functionality first, followed by advanced features and monetization hooks. The technology stack is carefully chosen to maximize development speed, scalability, and impact for the hackathon.
+                </p>
+                
+                <h3 class="text-2xl font-bold text-white mb-6">Development Roadmap</h3>
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-24 text-right pr-4">
+                            <p class="font-bold text-green-400">Week 1</p>
+                            <p class="text-sm text-gray-400">June 3-9</p>
+                        </div>
+                        <div class="relative flex-1">
+                            <div class="absolute w-0.5 h-full bg-gray-600 left-2 top-2"></div>
+                            <div class="absolute w-4 h-4 rounded-full bg-green-400 left-0 top-2 transform translate-x-1/2 -translate-x-1/2"></div>
+                            <div class="ml-8 bg-gray-800 p-4 rounded-lg">
+                                <h4 class="font-bold text-white">Core Platform</h4>
+                                <ul class="list-disc list-inside text-gray-300 mt-2">
+                                    <li>Bolt authentication system</li>
+                                    <li>Replica creation wizard</li>
+                                    <li>Basic chat interface</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="flex items-start">
+                        <div class="flex-shrink-0 w-24 text-right pr-4">
+                            <p class="font-bold text-green-400">Week 2</p>
+                            <p class="text-sm text-gray-400">June 10-16</p>
+                        </div>
+                        <div class="relative flex-1">
+                            <div class="absolute w-0.5 h-full bg-gray-600 left-2 top-2"></div>
+                            <div class="absolute w-4 h-4 rounded-full bg-green-400 left-0 top-2 transform translate-x-1/2 -translate-x-1/2"></div>
+                            <div class="ml-8 bg-gray-800 p-4 rounded-lg">
+                                <h4 class="font-bold text-white">Advanced Features</h4>
+                                <ul class="list-disc list-inside text-gray-300 mt-2">
+                                    <li>Event hosting framework</li>
+                                    <li>Emergency response module</li>
+                                    <li>Algorand NFT integration</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="flex items-start">
+                        <div class="flex-shrink-0 w-24 text-right pr-4">
+                            <p class="font-bold text-green-400">Week 3</p>
+                            <p class="text-sm text-gray-400">June 17-23</p>
+                        </div>
+                        <div class="relative flex-1">
+                            <div class="absolute w-4 h-4 rounded-full bg-green-400 left-0 top-2 transform translate-x-1/2 -translate-x-1/2"></div>
+                            <div class="ml-8 bg-gray-800 p-4 rounded-lg">
+                                <h4 class="font-bold text-white">Monetization & Polish</h4>
+                                <ul class="list-disc list-inside text-gray-300 mt-2">
+                                    <li>RevenueCat subscription flows</li>
+                                    <li>Reddit community integration</li>
+                                    <li>Performance optimization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mt-12 mb-6">Technology Stack</h3>
+                <div id="tech-stack-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 hidden">
+        <div id="modal-content" class="bg-gray-800 text-white rounded-lg p-8 max-w-2xl w-full">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <p id="modal-text" class="text-gray-300 mb-6"></p>
+            <button id="modal-close" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const appData = {
+                revenueProjection: {
+                    labels: ['Month 1', 'Month 6', 'Month 12'],
+                    data: [15000, 150000, 750000]
+                },
+                replicaTypes: [
+                    { category: 'Personal', sources: 'User-uploaded videos/voice chats', icon: '👨‍👩‍👧‍👦' },
+                    { category: 'Public Figures', sources: 'Public domain archives, licensed content', icon: '🏛️' },
+                    { category: 'Creators', sources: 'Social media content, interviews', icon: '🎨' },
+                    { category: 'Professionals', sources: 'Educational materials, lectures', icon: '🧑‍🏫' },
+                    { category: 'Emergency', sources: 'Certified training materials, procedural guides', icon: '⚕️' },
+                ],
+                pricingTiers: [
+                    { tier: 'Personal Replicas', price: '$9.99/month', audience: 'General users', features: ['Create one personal replica', 'Basic chat interaction', 'Monthly data updates'] },
+                    { tier: 'Historical Figures', price: '$4.99/month', audience: 'Educators, students', features: ['Access to all public figures', 'Educational guides', 'Classroom integration tools'] },
+                    { tier: 'Emergency Access', price: '$99/year', audience: 'Professionals, travelers', features: ['Instant access to all professional replicas', 'HIPAA-ready medical assistance', 'Priority support'] },
+                ],
+                techStack: [
+                    { name: 'Tavus', use: 'Realistic avatar generation' },
+                    { name: 'ElevenLabs', use: 'Voice cloning & emotional speech' },
+                    { name: 'Algorand', use: 'NFT ownership & royalty distribution' },
+                    { name: 'RevenueCat', use: 'Subscription & event monetization' },
+                    { name: 'Entri+IONOS', use: 'Custom domain setup' },
+                    { name: 'Netlify', use: 'Full-stack deployment' },
+                    { name: 'Reddit API', use: 'Replica AMAs & community events' },
+                    { name: 'Bolt.new', use: 'AI-powered frontend development' },
+                ]
+            };
+
+            const mainNav = document.getElementById('main-nav');
+            const navLinks = mainNav.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalClose = document.getElementById('modal-close');
+
+            function showSection(hash) {
+                const targetId = hash.substring(1);
+                
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === hash);
+                });
+            }
+            
+            mainNav.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link) {
+                    e.preventDefault();
+                    history.pushState(null, null, link.href);
+                    showSection(link.hash);
+                }
+            });
+
+            window.addEventListener('popstate', () => {
+                showSection(window.location.hash || '#overview');
+            });
+
+            function showModal(title, text) {
+                modalTitle.textContent = title;
+                modalText.textContent = text;
+                modal.classList.remove('hidden');
+            }
+
+            modalClose.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+            function renderReplicaTypes() {
+                const grid = document.getElementById('replica-types-grid');
+                grid.innerHTML = appData.replicaTypes.map(item => `
+                    <div class="bg-gray-700 p-4 rounded-lg cursor-pointer hover:bg-green-600 transition-colors duration-200 replica-card" data-category="${item.category}" data-sources="${item.sources}">
+                        <div class="text-4xl mb-3">${item.icon}</div>
+                        <h4 class="font-bold text-white">${item.category}</h4>
+                    </div>
+                `).join('');
+                
+                document.querySelectorAll('.replica-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        showModal(`Data Sources for ${card.dataset.category}`, card.dataset.sources);
+                    });
+                });
+            }
+
+            function renderPricingTiers() {
+                const grid = document.getElementById('pricing-tiers-grid');
+                grid.innerHTML = appData.pricingTiers.map(tier => `
+                    <div class="bg-gray-800 p-6 rounded-lg border-2 border-gray-700 hover:border-green-500 transition-colors">
+                        <h4 class="text-xl font-bold text-white">${tier.tier}</h4>
+                        <p class="text-3xl font-bold text-green-400 my-4">${tier.price}</p>
+                        <p class="text-gray-400 mb-4">For ${tier.audience}</p>
+                        <ul class="space-y-2 text-gray-300">
+                            ${tier.features.map(f => `<li class="flex items-center"><span class="text-green-500 mr-2">✓</span>${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+            }
+            
+            function renderTechStack() {
+                const grid = document.getElementById('tech-stack-grid');
+                grid.innerHTML = appData.techStack.map(tech => `
+                     <div class="bg-gray-800 p-4 rounded-lg text-center flex flex-col items-center justify-center">
+                        <p class="font-bold text-white text-lg">${tech.name}</p>
+                        <p class="text-sm text-gray-400">${tech.use}</p>
+                    </div>
+                `).join('');
+            }
+
+            function initRevenueChart() {
+                const ctx = document.getElementById('revenueChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: appData.revenueProjection.labels,
+                        datasets: [{
+                            label: 'Estimated Revenue ($)',
+                            data: appData.revenueProjection.data,
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderColor: '#10B981',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#10B981',
+                            pointRadius: 5,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: '#9CA3AF',
+                                    callback: function(value) {
+                                        return '$' + (value / 1000) + 'k';
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            x: {
+                                ticks: { color: '#9CA3AF' },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: { color: '#D1D5DB' }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            renderReplicaTypes();
+            renderPricingTiers();
+            renderTechStack();
+            initRevenueChart();
+
+            showSection(window.location.hash || '#overview');
+        });
+    </script>
+
+</body>
+</html>
